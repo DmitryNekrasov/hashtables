@@ -13,9 +13,7 @@ class OpenAddressingHashMap<K, V> : MutableMap<K, V> {
         val index = findSlot(key)
         slots[index]?.let { slot ->
             if (slot.isOccupied) {
-                val oldValue = slot.value
-                slot.value = value
-                return oldValue
+                return slot.setValue(value)
             } else {
                 slot.key = key
                 slot.value = value
@@ -23,7 +21,7 @@ class OpenAddressingHashMap<K, V> : MutableMap<K, V> {
                 return null
             }
         }
-        slots[index] = Entry(key, value, true)
+        slots[index] = OpenAddressingEntry(key, value, true)
         return null
     }
 
@@ -64,7 +62,7 @@ class OpenAddressingHashMap<K, V> : MutableMap<K, V> {
 
     private val capacity = 10
 
-    private val slots = Array<Entry<K, V>?>(capacity) { null }
+    private val slots = Array<OpenAddressingEntry<K, V>?>(capacity) { null }
 
     private fun findSlot(key: K): Int {
         var index = key.hashCode() % capacity
