@@ -10,7 +10,21 @@ class OpenAddressingHashMap<K, V> : MutableMap<K, V> {
         get() = TODO("Not yet implemented")
 
     override fun put(key: K, value: V): V? {
-        TODO("Not yet implemented")
+        val index = findSlot(key)
+        slots[index]?.let { slot ->
+            if (slot.isOccupied) {
+                val oldValue = slot.value
+                slot.value = value
+                return oldValue
+            } else {
+                slot.key = key
+                slot.value = value
+                slot.isOccupied = true
+                return null
+            }
+        }
+        slots[index] = Entry(key, value, true)
+        return null
     }
 
     override fun remove(key: K): V? {

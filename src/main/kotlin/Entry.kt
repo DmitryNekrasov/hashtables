@@ -1,1 +1,1 @@
-class Entry<K, V>(val key: K, val value: V, var isOccupied: Boolean = false)
+class Entry<K, V>(var key: K, var value: V, var isOccupied: Boolean = false)
