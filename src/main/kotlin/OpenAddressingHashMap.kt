@@ -43,4 +43,8 @@ class OpenAddressingHashMap<K, V> : MutableMap<K, V> {
     override fun get(key: K): V? {
         TODO("Not yet implemented")
     }
+
+    private val capacity = 10
+
+    private val slots = Array<Entry<K, V>?>(capacity) { null }
 }
