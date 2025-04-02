@@ -55,7 +55,13 @@ class OpenAddressingHashMap<K, V> : MutableMap<K, V> {
     }
 
     override fun get(key: K): V? {
-        TODO("Not yet implemented")
+        val index = findSlot(key)
+        slots[index]?.also { slot ->
+            if (slot.isOccupied) {
+                return slot.value
+            }
+        }
+        return null
     }
 
     private val capacity = 10
