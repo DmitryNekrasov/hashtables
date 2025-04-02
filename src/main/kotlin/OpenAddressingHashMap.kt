@@ -47,4 +47,12 @@ class OpenAddressingHashMap<K, V> : MutableMap<K, V> {
     private val capacity = 10
 
     private val slots = Array<Entry<K, V>?>(capacity) { null }
+
+    private fun findSlot(key: K): Int {
+        var index = key.hashCode() % capacity
+        while (slots[index]?.isOccupied == true && slots[index]?.key != key) {
+            index = (index + 1) % capacity
+        }
+        return index
+    }
 }
