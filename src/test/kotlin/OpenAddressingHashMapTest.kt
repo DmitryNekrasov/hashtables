@@ -1,5 +1,4 @@
 import kotlin.test.*
-import kotlin.collections.MutableMap.MutableEntry
 
 class OpenAddressingEntryTest {
     @Test
