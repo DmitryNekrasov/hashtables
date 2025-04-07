@@ -44,13 +44,8 @@ class OpenAddressingHashMap<K, V> : MutableMap<K, V> {
         TODO("Not yet implemented")
     }
 
-    override fun containsKey(key: K): Boolean {
-        val index = findSlot(key)
-        slots[index]?.also { slot ->
-            return slot.isOccupied
-        }
-        return false
-    }
+    override fun containsKey(key: K): Boolean =
+        slots[findSlot(key)]?.isOccupied == true
 
     override fun containsValue(value: V): Boolean {
         TODO("Not yet implemented")
